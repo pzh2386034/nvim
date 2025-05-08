@@ -49,12 +49,22 @@ return require('packer').startup(function(use)
 
   use "akinsho/bufferline.nvim" -- buffer分割线
   --   use "lewis6991/gitsigns.nvim" -- 左则git提示
+  use "nvim-telescope/telescope-fzy-native.nvim"
 
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',  -- 文件检索
+    'nvim-telescope/telescope.nvim', tag = '0.1.8',  -- 文件检索
     requires = { {'nvim-lua/plenary.nvim'} }
   }
+
+  -- use {
+  --   'ludovicchabant/vim-gutentags',
+  --   config = function()
+  --     -- 基础配置
+  --     vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/nvim/tags/')
+  --     vim.g.gutentags_file_list_command = 'rg --files'  -- 使用 ripgrep 加速
+  --   end
+  -- }
 
   if packer_bootstrap then
     require('packer').sync()
