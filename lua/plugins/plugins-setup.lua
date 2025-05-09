@@ -29,7 +29,12 @@ return require('packer').startup(function(use)
   }
   use 'nvim-treesitter/nvim-treesitter' -- 语法高亮
   use 'p00f/nvim-ts-rainbow' -- 配合treesitter，不同括号颜色区分
-
+  use {
+    'nvim-tree/nvim-tree.lua',  -- 文档树
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- 文档树图标
+    }
+  }
 
   use {
     "williamboman/mason.nvim",
@@ -47,8 +52,8 @@ return require('packer').startup(function(use)
   use "numToStr/Comment.nvim" -- gcc和gc注释
   use "windwp/nvim-autopairs" -- 自动补全括号
 
-  use "akinsho/bufferline.nvim" -- buffer分割线
-  --   use "lewis6991/gitsigns.nvim" -- 左则git提示
+  -- use "akinsho/bufferline.nvim" -- buffer分割线
+  use "lewis6991/gitsigns.nvim" -- 左则git提示
   use "nvim-telescope/telescope-fzy-native.nvim"
 
 
@@ -57,14 +62,14 @@ return require('packer').startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  -- use {
-  --   'ludovicchabant/vim-gutentags',
-  --   config = function()
-  --     -- 基础配置
-  --     vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/nvim/tags/')
-  --     vim.g.gutentags_file_list_command = 'rg --files'  -- 使用 ripgrep 加速
-  --   end
-  -- }
+  use {
+    'ludovicchabant/vim-gutentags',
+    config = function()
+      -- 基础配置
+      vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/nvim/tags/')
+      vim.g.gutentags_file_list_command = 'rg --files'  -- 使用 ripgrep 加速
+    end
+  }
 
   if packer_bootstrap then
     require('packer').sync()

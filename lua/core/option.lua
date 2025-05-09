@@ -28,3 +28,6 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 vim.cmd[[colorscheme tokyonight-moon]]
 
+vim.opt.title = false
+vim.opt.titlestring = ""
+
