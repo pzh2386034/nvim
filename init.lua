@@ -35,27 +35,16 @@ require('Comment').setup({
 require("plugins.nvim-autopairs")
 -- require("plugins.bufferline")
 require("plugins.telescope")
--- 异步生成 tags (需要 plenary.nvim)
-local async = require('plenary.job')
 
-vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = '*',
-  callback = function()
-    async:new({
-      command = 'ctags',
-      args = {
-        '-R', '-f', '.git/tags',
-        '--exclude=node_modules',
-        '--exclude=.git',
-        '--exclude=dist',
-        '.'
-      },
-      cwd = vim.fn.getcwd(),
-      on_exit = function(_, return_val)
-        if return_val == 0 then
-          print('Tags updated successfully')
-        end
-      end
-    }):start()
-  end
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+  end,
 })
+-- You probably also want to set a keymap to toggle aerial
+-- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+
+
+---- 使用如何命令可以查找快捷键定义
+-- :verbose nmap co

@@ -6,6 +6,22 @@ require('telescope').setup {
             override_file_sorter = true,
         }
     },
+    aerial = {
+      -- Set the width of the first two columns (the second
+      -- is relevant only when show_columns is set to 'both')
+      col1_width = 4,
+      col2_width = 4,
+      -- How to format the symbols
+      format_symbol = function(symbol_path, filetype)
+        if filetype == "json" or filetype == "yaml" then
+          return table.concat(symbol_path, ".")
+        else
+          return symbol_path[#symbol_path]
+        end
+      end,
+      -- Available modes: symbols, lines, both
+      show_columns = "both",
+    },
     defaults = {
       mappings = {
         i = {
@@ -15,11 +31,20 @@ require('telescope').setup {
           ["<C-j>"] = require('telescope.actions').move_selection_next, -- 保持默认
           ["<Esc>"] = require('telescope.actions').close, -- 保持默认退出
           -- 其他自定义映射...
+          -- <C-q>	Send all items not filtered to quickfixlist (qflist)
           ["<C-y>"] = require('telescope.actions').send_selected_to_qflist, --  TODO: 选中后自动打开quickfix(actions.open_qflist())
           ["<M-q>"] = false, -- 禁用原快捷键
         },
         n = {
         },
+      },
+      layout_config = {
+        horizontal = {
+          -- preview_width = 0.7,         -- 预览窗口占 30%
+          -- width = 0.9,                 -- 总宽度占屏幕 90%（居中效果）
+          -- height = 0.9,                -- 总高度占屏幕 80%
+        }
+        -- other layout configuration here
       },
     }
 }
@@ -40,5 +65,8 @@ vim.keymap.set('n', '<leader>fj', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>ft', builtin.tags, {})
 
 vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
+
+
+vim.keymap.set('n', ',f', '<cmd>Telescope aerial<CR>', { desc = "Aerial Symbols (Functions/Classes)" })
 
 --------------------- telescope end------------------------------

@@ -59,7 +59,7 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',  -- 文件检索
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { {'nvim-lua/plenary.nvim'}, {'stevearc/aerial.nvim' } },
   }
 
   use {
@@ -73,6 +73,13 @@ return require('packer').startup(function(use)
 
   use{ 'anuvyklack/pretty-fold.nvim',
   }
+
+  use({
+    "stevearc/aerial.nvim",
+    config = function()
+      require("aerial").setup()
+    end,
+  })
 
   if packer_bootstrap then
     require('packer').sync()

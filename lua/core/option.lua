@@ -48,6 +48,23 @@ vim.keymap.set('n', 'rl', ':vertical resize -10<CR>', { noremap = true, silent =
 vim.keymap.set('n', 'rh', ':vertical resize +10<CR>', { noremap = true, silent = true, desc = "" })
 vim.keymap.set('n', 'rk', ':resize +10<CR>', { noremap = true, silent = true, desc = "" })
 vim.keymap.set('n', 'rj', ':resize -10<CR>', { noremap = true, silent = true, desc = "" })
+
+
+-- 定义切换 Quickfix 窗口的函数（高度 6 行）
+local function toggle_quickfix()
+  if vim.fn.getqflist({ winid = 1 }).winid ~= 0 then
+    vim.cmd("cclose")
+  else
+    vim.cmd("botright copen 6")  -- 底部打开高度 6
+  end
+end
+
+-- 映射快捷键
+vim.keymap.set('n', 'co', toggle_quickfix, {
+  noremap = true,
+  silent = true,
+  desc = "Toggle Quickfix (height 6)"
+})
 --------------------------------end-----------------------------------
 ---
 ---
@@ -75,7 +92,6 @@ vim.opt.foldtext = "v:lua.vim.fn.printf('%s ▸ %d lines', getline(v:foldstart),
 --------------------------------- 异步生成 tags (需要 plenary.nvim) ----------------------------------------
 local async = require('plenary.job')
 
-vim.keymap.set('n', 'co', ':wq<CR>', { noremap = true, silent = true, desc = "Save changes and exit" })
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '*',
   callback = function()
