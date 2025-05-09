@@ -81,6 +81,10 @@ return require('packer').startup(function(use)
     end,
   })
 
+  use {"ibhagwan/fzf-lua",
+    requires = { {"nvim-tree/nvim-web-devicons"} },
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end

@@ -41,8 +41,8 @@ require('telescope').setup {
       layout_config = {
         horizontal = {
           -- preview_width = 0.7,         -- 预览窗口占 30%
-          -- width = 0.9,                 -- 总宽度占屏幕 90%（居中效果）
-          -- height = 0.9,                -- 总高度占屏幕 80%
+          width = 0.9,                 -- 总宽度占屏幕 90%（居中效果）
+          height = 0.9,                -- 总高度占屏幕 80%
         }
         -- other layout configuration here
       },
@@ -51,11 +51,11 @@ require('telescope').setup {
 -- require('telescope').load_extension('fzy_native')
 local builtin = require('telescope.builtin')
 -- 进入telescope页面会是插入模式，回到正常模式就可以用j和k来移动了
-vim.keymap.set('n', 'ff', builtin.find_files, {})
-vim.keymap.set('n', 'fa', builtin.live_grep, {})  -- 环境里要安装ripgrep
-vim.keymap.set('n', 'fb', builtin.buffers, {})
-vim.keymap.set('n', 'fh', builtin.help_tags, {})
-vim.keymap.set('n', 'f/', builtin.command_history, {})
+-- vim.keymap.set('n', 'ff', builtin.find_files, {})
+-- vim.keymap.set('n', 'fa', builtin.live_grep, {})  -- 环境里要安装ripgrep
+-- vim.keymap.set('n', 'fb', builtin.buffers, {})
+-- vim.keymap.set('n', 'fh', builtin.help_tags, {})
+-- vim.keymap.set('n', 'f/', builtin.command_history, {})
 
 vim.keymap.set('n', '<leader>ff', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>fi', builtin.lsp_incoming_calls, {})
@@ -67,6 +67,6 @@ vim.keymap.set('n', '<leader>ft', builtin.tags, {})
 vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
 
 
-vim.keymap.set('n', ',f', '<cmd>Telescope aerial<CR>', { desc = "Aerial Symbols (Functions/Classes)" })
+-- vim.keymap.set('n', ',f', '<cmd>Telescope aerial<CR>', { desc = "Aerial Symbols (Functions/Classes)" })
 
 --------------------- telescope end------------------------------

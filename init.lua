@@ -45,6 +45,28 @@ require("aerial").setup({
 -- You probably also want to set a keymap to toggle aerial
 -- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
+require("fzf-lua").setup({
+  -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
+  -- fzf_bin = ...,
+  -- each of these options can also be passed as function that return options table
+  -- e.g. winopts = function() return { ... } end
+  -- files = { ... },
+  -- 全局默认全屏
+  winopts = {
+    fullscreen = true,        -- 强制全屏模式
+    preview = {
+      -- layout = "vertical",    -- 垂直布局预览
+      scrollbar = "border",   -- 带边框的滚动条
+    },
+  }
+})
+-- 常用操作映射
+vim.keymap.set('n', 'ff', "<cmd>FzfLua files<CR>", { desc = "Find Files" })
+vim.keymap.set('n', 'fg', "<cmd>FzfLua live_grep<CR>", { desc = "Live Grep" })
+vim.keymap.set('n', 'fc', "<cmd>FzfLua lgrep_curbuf<CR>", { desc = "live Grep Buffer " })
+vim.keymap.set('n', 'fa', "<cmd>FzfLua grep_cword<CR>", { desc = "Live Grep current word" })
 
+vim.keymap.set('n', 'fb', "<cmd>FzfLua buffers<CR>", { desc = "Find Buffers" })
+vim.keymap.set('n', ',f', "<cmd>FzfLua btags<CR>", { desc = "Find Buffer tags" })
 ---- 使用如何命令可以查找快捷键定义
 -- :verbose nmap co
