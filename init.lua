@@ -46,6 +46,7 @@ require("aerial").setup({
 -- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 require("plugins.neogit")
 require("plugins.luaSnip")
+require("plugins.avante")
 
 require("fzf-lua").setup({
   -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
