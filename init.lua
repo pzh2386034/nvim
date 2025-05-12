@@ -44,6 +44,8 @@ require("aerial").setup({
 })
 -- You probably also want to set a keymap to toggle aerial
 -- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+require("plugins.neogit")
+require("plugins.luaSnip")
 
 require("fzf-lua").setup({
   -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
@@ -68,5 +70,6 @@ vim.keymap.set('n', 'fa', "<cmd>FzfLua grep_cword<CR>", { desc = "Live Grep curr
 
 vim.keymap.set('n', 'fb', "<cmd>FzfLua buffers<CR>", { desc = "Find Buffers" })
 vim.keymap.set('n', ',f', "<cmd>FzfLua btags<CR>", { desc = "Find Buffer tags" })
+vim.keymap.set('n', 'fs', "<cmd>FzfLua git_status<CR>", { desc = "Find Buffer tags" })
 ---- 使用如何命令可以查找快捷键定义
 -- :verbose nmap co

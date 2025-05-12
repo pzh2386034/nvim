@@ -85,6 +85,24 @@ return require('packer').startup(function(use)
     requires = { {"nvim-tree/nvim-web-devicons"} },
   }
 
+  use({
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!:).
+    run = "make install_jsregexp"
+  })
+
+  -- Packer.nvim 配置
+  use {
+    'NeogitOrg/neogit',
+    requires = {
+      'nvim-lua/plenary.nvim', -- 必须依赖
+      'sindrets/diffview.nvim', -- 可选：增强 diff 功能
+      'ibhagwan/fzf-lua',              -- optional
+    },
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end

@@ -63,7 +63,8 @@ end, { expr = true, desc = "Jump to previous hunk" })
 -- 更多实用映射
 vim.keymap.set('n', '<leader>hs', require('gitsigns').stage_hunk, { desc = "Stage hunk" })
 vim.keymap.set('n', '<leader>hu', require('gitsigns').undo_stage_hunk, { desc = "Unstage hunk" })
-vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { desc = "Preview hunk" })
 vim.keymap.set('n', '<leader>hS', require('gitsigns').reset_hunk, { desc = "Reset hunk" })
+
+vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { desc = "Preview hunk" })
 vim.keymap.set('n', '<leader>hi', require('gitsigns').preview_hunk_inline, { desc = "Preview hunk inline" })
 vim.keymap.set('n', '<leader>hb', require('gitsigns').toggle_current_line_blame, { desc = "toggle current line blame" })
