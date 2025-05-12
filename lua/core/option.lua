@@ -113,3 +113,43 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     }):start()
   end
 })
+-------------------------------------------------------------------------------------------------------------
+local function async_bitbake()
+  -- Find project root (using .git as marker)
+  local project_root = vim.fn.finddir('.git', '.;')
+  if project_root == '' then
+    vim.notify('Not in a Git project!', vim.log.levels.ERROR)
+    return
+  end
+  project_root = vim.fn.fnamemodify(project_root, ':h')  -- Remove '/.git'
+
+  -- Extract project name (last part of the path)
+  local foldname = vim.fn.fnamemodify(project_root, ':t')
+
+  -- Use toggleterm to run the command
+  local Terminal = require('toggleterm.terminal').Terminal
+  local bitbake_term = Terminal:new {
+    cmd = 'bitbake ' .. foldname,
+    dir = project_root,
+    direction = 'horizontal',
+    close_on_exit = false,  -- Keep terminal open
+    on_open = function(term)
+      vim.cmd('startinsert')
+    end,
+    on_close = function(term)
+      -- Optional: Custom behavior when closing
+    end,
+    -- Assign a unique ID to reuse the same terminal
+    id = 1,  -- Fixed ID ensures reusability
+  }
+
+  -- Toggle the terminal (opens if closed, closes if open)
+  bitbake_term:toggle()
+end
+
+-- Map the key
+vim.keymap.set('n', 'cc', async_bitbake, {
+  noremap = true,
+  silent = true,
+  desc = "Run bitbake in a toggleable terminal"
+})

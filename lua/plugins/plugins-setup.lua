@@ -116,6 +116,10 @@ return require('packer').startup(function(use)
           'nvim-tree/nvim-web-devicons',
           'stevearc/dressing.nvim',
           'nvim-lua/plenary.nvim',
+          'nvim-treesitter/nvim-treesitter',
+          'zbirenbaum/copilot.lua',
+          'hrsh7th/nvim-cmp',
+          'HakonHarnes/img-clip.nvim',
           'MunifTanjim/nui.nvim',
           {
               'MeanderingProgrammer/render-markdown.nvim',
@@ -131,6 +135,11 @@ return require('packer').startup(function(use)
       end,
       run = 'make', -- Optional, only if you want to use tiktoken_core to calculate tokens count
   }
+
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
+
   if packer_bootstrap then
     require('packer').sync()
   end
