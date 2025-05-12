@@ -20,7 +20,7 @@ neogit.setup({
   }
 })
 vim.keymap.set('n', 'gt', ":Neogit<CR>")
-vim.keymap.set('n', 'cc', function()
-  require('neogit').open({ kind = "split" })
-  require('neogit').dispatch("commit")
-end, { desc = "快速提交" })
+-- vim.keymap.set('n', 'cc', function()
+--   require('neogit').open({ kind = "split" })
+--   require('neogit').dispatch("commit")
+-- end, { desc = "快速提交" })

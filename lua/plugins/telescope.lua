@@ -64,7 +64,7 @@ vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fj', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>ft', builtin.tags, {})
 
-vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
+vim.keymap.set('n', ',r', builtin.oldfiles, {})
 
 
 -- vim.keymap.set('n', ',f', '<cmd>Telescope aerial<CR>', { desc = "Aerial Symbols (Functions/Classes)" })

@@ -103,6 +103,8 @@ return require('packer').startup(function(use)
     },
   }
 
+  use "folke/which-key.nvim"
+
   if packer_bootstrap then
     require('packer').sync()
   end
