@@ -13,6 +13,7 @@ opt.cursorline = true
 
 --启动鼠标
 -- opt.mouse:append('a')
+vim.o.mouse = ''  -- 禁用所有鼠标功能,恢复文本复制粘贴
 
 --系统粘贴板
 opt.clipboard:append("unnamedplus")
@@ -49,8 +50,12 @@ vim.keymap.set('n', 'rh', ':vertical resize +10<CR>', { noremap = true, silent =
 vim.keymap.set('n', 'rk', ':resize +10<CR>', { noremap = true, silent = true, desc = "" })
 vim.keymap.set('n', 'rj', ':resize -10<CR>', { noremap = true, silent = true, desc = "" })
 
+vim.keymap.set('n', ',<space>', 'i<space><esc>', { noremap = true, silent = true, desc = "" })
+-- vim.keymap.set('v', '//', "y/\\V<C-R>=escape(@",'/\\')<CR><CR>", { noremap = true, silent = true, desc = "" })
+--------------------------------end-----------------------------------
 
--- 定义切换 Quickfix 窗口的函数（高度 6 行）
+
+--------------------- 定义切换 Quickfix 窗口的函数（高度 6 行） ---------------
 local function toggle_quickfix()
   if vim.fn.getqflist({ winid = 1 }).winid ~= 0 then
     vim.cmd("cclose")
@@ -58,7 +63,6 @@ local function toggle_quickfix()
     vim.cmd("botright copen 6")  -- 底部打开高度 6
   end
 end
-
 -- 映射快捷键
 vim.keymap.set('n', 'co', toggle_quickfix, {
   noremap = true,
@@ -114,6 +118,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   end
 })
 -------------------------------------------------------------------------------------------------------------
+
 local function async_bitbake()
   -- Find project root (using .git as marker)
   local project_root = vim.fn.finddir('.git', '.;')
@@ -126,18 +131,23 @@ local function async_bitbake()
   -- Extract project name (last part of the path)
   local foldname = vim.fn.fnamemodify(project_root, ':t')
 
-  -- Use toggleterm to run the command
-  local Terminal = require('toggleterm.terminal').Terminal
-  local bitbake_term = Terminal:new {
-    cmd = 'bitbake ' .. foldname,
-    dir = project_root,
-    direction = 'horizontal',
-    close_on_exit = false,  -- Keep terminal open
-    on_open = function(term)
-      vim.cmd('startinsert')
-    end,
-    on_close = function(term)
-      -- Optional: Custom behavior when closing
+  -- Get the current environment and modify it if needed
+  local myenv = vim.fn.environ()
+  -- Use plenary.job to capture output
+  local Job = require('plenary.job')
+  Job:new({
+    command = 'bitbake ',
+    args = { foldname },
+    cwd = project_root,
+    env = myenv,  -- Inherit and extend the current environment
+    on_exit = function(j, return_val)
+      -- Send output to Quickfix
+      vim.fn.setqflist({}, ' ', {
+        title = 'Bitbake Output',
+        lines = j:result(),
+      })
+      -- Open Quickfix window
+      vim.cmd('botright copen 6')
     end,
     -- Assign a unique ID to reuse the same terminal
     id = 1,  -- Fixed ID ensures reusability

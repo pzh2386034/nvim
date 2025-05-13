@@ -105,7 +105,6 @@ return require('packer').startup(function(use)
 
   use "folke/which-key.nvim"
 
-  
   use {
       'yetone/avante.nvim',
       build = "make",
@@ -139,6 +138,40 @@ return require('packer').startup(function(use)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end}
+
+  use {
+    'saghen/blink.cmp',
+    require = {
+        'Kaiser-Yang/blink-cmp-avante',
+        -- ... Other dependencies
+    },
+    opts = {
+        sources = {
+            -- Add 'avante' to the list
+            default = { 'avante', 'lsp', 'path', 'luasnip', 'buffer' },
+            providers = {
+                avante = {
+                    module = 'blink-cmp-avante',
+                    name = 'Avante',
+                    opts = {
+                        -- options for blink-cmp-avante
+                    }
+                }
+            },
+        }
+    }
+  }
+
+  use {
+    'nvim-neo-tree/neo-tree.nvim',
+      require = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+        -- { "3rd/image.nvim", opts = {} }, -- Optional image support
+      },
+  }
+
 
   if packer_bootstrap then
     require('packer').sync()

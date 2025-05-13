@@ -2,7 +2,7 @@ require("core.option")
 require("core.keymaps")
 require("plugins.plugins-setup")
 require("plugins.nvim-treesitter")
-require("plugins.nvim-tree")
+require("plugins.neotree")
 
 require("plugins/mason-lspconfig")
 require("plugins.cmp")
