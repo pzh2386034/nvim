@@ -32,6 +32,12 @@ vim.cmd[[colorscheme tokyonight-moon]]
 vim.opt.title = false
 vim.opt.titlestring = ""
 
+-- vim.opt.signcolumn = "no"
+vim.diagnostic.config({
+  signs = false, -- 不显示错误/警告图标
+  virtual_text = false, -- 同时关闭行内错误提示（可选）
+})
+
 --------------------- sync vim key mapping--------------------------
 -- 将 ,h 映射为向左切换分屏
 vim.keymap.set('n', ',h', '<C-w>h', { noremap = true, silent = true, desc = "向左切换窗口" })
@@ -91,6 +97,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   command = "normal zR"
 })
 vim.opt.foldtext = "v:lua.vim.fn.printf('%s ▸ %d lines', getline(v:foldstart), v:foldend - v:foldstart + 1)"
+
+vim.keymap.set('n', 's', 'zo', { noremap = true, silent = true, desc = "Open one level of fold under cursor" })
+vim.keymap.set('n', 't', 'zO', { noremap = true, silent = true, desc = "Open all levels of fold under cursor" })
+vim.keymap.set('n', 'S', 'zc', { noremap = true, silent = true, desc = "Close one level of fold under cursor" })
+vim.keymap.set('n', 'T', 'zC', { noremap = true, silent = true, desc = "Close all levels of fold under cursor" })
 -------------------------   fold end  ---------------------------------------
 
 --------------------------------- 异步生成 tags (需要 plenary.nvim) ----------------------------------------

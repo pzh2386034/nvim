@@ -48,6 +48,7 @@ require('neo-tree').setup({
            end,
            desc = "print path",
          },
+        ["l"] = "focus_preview",
          -- ["<C-s>"] = {"vertical_split"},
         ["P"] = {
           "toggle_preview",

@@ -19,7 +19,11 @@ neogit.setup({
     }
   }
 })
-vim.keymap.set('n', 'gt', ":Neogit<CR>")
+-- vim.keymap.set('n', 'gt', ":Neogit<CR>")
+vim.keymap.set('n', 'gt', function()
+  local file_dir = vim.fn.expand('%:p:h')  -- Get the directory of the current file
+  require('neogit').open({ cwd = file_dir })  -- Open Neogit in the file's directory
+end, { noremap = true, silent = true, desc = "Open current file's directory in Neogit" })
 -- vim.keymap.set('n', 'cc', function()
 --   require('neogit').open({ kind = "split" })
 --   require('neogit').dispatch("commit")

@@ -172,6 +172,7 @@ return require('packer').startup(function(use)
       },
   }
 
+  use 'tamton-aquib/duck.nvim'
 
   if packer_bootstrap then
     require('packer').sync()

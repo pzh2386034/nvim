@@ -72,5 +72,13 @@ vim.keymap.set('n', 'fa', "<cmd>FzfLua grep_cword<CR>", { desc = "Live Grep curr
 vim.keymap.set('n', 'fb', "<cmd>FzfLua buffers<CR>", { desc = "Find Buffers" })
 vim.keymap.set('n', ',f', "<cmd>FzfLua btags<CR>", { desc = "Find Buffer tags" })
 vim.keymap.set('n', 'fs', "<cmd>FzfLua git_status<CR>", { desc = "Find Buffer tags" })
+vim.keymap.set('n', 'fh', "<cmd>FzfLua helptags<CR>", { desc = "Find Buffer tags" })
+vim.keymap.set('n', 'f/', "<cmd>FzfLua command_history<CR>", { desc = "List history command" })
+vim.keymap.set('n', 'fk', "<cmd>FzfLua keymaps<CR>", { desc = "List nvim all keymaps" })
+vim.keymap.set('n', 'fz', "<cmd>FzfLua zoxide<CR>", { desc = "Find Buffer tags" })
 ---- 使用如何命令可以查找快捷键定义
 -- :verbose nmap co
+--
+vim.keymap.set('n', '<leader>dd', function() require("duck").hatch() end, {})
+vim.keymap.set('n', '<leader>dk', function() require("duck").cook() end, {})
+vim.keymap.set('n', '<leader>da', function() require("duck").cook_all() end, {})
