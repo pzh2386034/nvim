@@ -1,0 +1,290 @@
+# Created by newuser for 5.9
+#
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ANTIGEN="$HOME/wks/antigen/antigen.zsh"
+ANTIGEN="$HOME/.config/nvim/antigen.zsh"
+# 共享history command
+HISTFILE=~/.zhistory
+HISTSIZE=SAVEHIST=10000
+setopt inc_append_history
+setopt share_history
+
+# pyenv
+#export PYENV_ROOT="$HOME/.pyenv"
+#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+# 
+
+source "$ANTIGEN"
+antigen use prezto
+#antigen bundle rupa/z z.sh
+antigen bundle Vifon/deer
+if [[ `uname` == "Darwin" ]]; then
+    antigen bundle zdharma/fast-syntax-highlighting
+fi
+antigen bundle willghatch/zsh-cdr
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle git
+antigen bundle zsh-users/zsh-completions
+#antigen bundle zsh-users/zsh-autosuggestions
+# no use
+antigen bundle autojump
+antigen bundle sorin-ionescu/prezto
+# power line status
+antigen theme romkatv/powerlevel10k
+# display aliases command 
+# antigen bundle "MichaelAquilina/zsh-you-should-use"
+antigen bundle supercrabtree/k
+# antigen bundle zsh-users/zsh-history-substring-search
+# enhance cd
+if [[ `uname` == "Darwin" ]]; then
+    antigen bundle b4b4r07/enhancd
+fi
+antigen bundle denisidoro/navi
+antigen bundle zsh-users/zaw
+antigen bundle supercrabtree/k #list file info
+antigen bundle 'wfxr/forgit'
+antigen bundle 'NullSense/fuzzy-sys' # fzf for systemctrl
+antigen bundle agkozak/zsh-z
+
+
+
+# self bind key
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
+bindkey '^h' backward-delete-char
+bindkey '^j' backward-kill-word
+bindkey '\eh' backward-char
+bindkey '\el' forward-char
+bindkey '\ej' backward-word
+bindkey '\ek' forward-word
+
+
+
+setopt auto_pushd
+hash -d bmc=$HOME/wks/openbmc
+
+# 不以空格开头的命令记录到历史中
+setopt hist_ignore_space
+alias cd=" cd"
+alias ls=" ls"
+alias nv="nvim"
+
+alias gdcd='gd --cached'
+alias gst='git status'
+alias gst=" git status"
+alias gsb='git status -sb'
+alias python=/usr/bin/python3
+alias pip=/usr/bin/pip3
+alias scrapy="/Users/zeus/Library/Python/3.8/bin/scrapy"
+antigen apply
+
+alias qemu='f() {qemu-bmc -m 256 -M ast2600-evb -nographic -drive file=$1,format=raw,if=mtd -net nic -net user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostname=qemu };f'
+alias qemu-arm='f() {docker run -it --rm -v /home/pan/wks/raspberry/learn-raspberry/src/lesson00/:/root mikoto2000/qemu-system-arm}; f'
+alias tex='f() {docker run -it --rm -v /home/pan/wks/greatwall/doc:/root zeuspan/texcompiler}; f'
+alias dk-dhcpd='f() {docker run -it --rm --init --net host -v "/etc/dhcp":/data networkboot/dhcpd enx081f7135c299 &}; f'
+alias dk-rpic='f() {docker run --rm -v $(pwd):/app -w /app pan/rpi-compiler make $1 };f'
+alias um='f() {umount /media/pan/$1}; f'
+export PATH="~/wk/qemu/build/aarch64-softmmu:${PATH}"
+alias bmcweb='f() {docker run -it --rm -v /usr/share/www:/usr/share/www -v /home/pan/wks/testWeb/bmcweb:/build --net=host bmcweb-compiler}; f'
+
+proxy () {
+	export https_proxy='http://127.0.0.1:8889/'
+	export http_proxy='http://127.0.0.1:8889/'
+	echo "HTTP(s) proxy on"
+}
+noproxy () {
+	unset http_proxy
+	unset htps_proxy
+	echo "HTTP(s) proxy off"
+}
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+				  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+dbb() {
+  local dir
+  cd $ch'/openbmc-master';
+  source setup tririvers ../build; 
+  cd workspace/sources
+  dir=$(ls | fzf -m)
+  cd "$dir"
+  echo "===================Display git status===================="
+  git status
+  echo "===================Display git log===================="
+  git log --oneline --max-count=6
+  read -q REPLY?"Do you want to reset $dir reposite?"
+	if [ "x$REPLY" == "xy" ]
+	then
+		devtool reset $dir
+		cd -
+		read -q DEL?"Do you want to DELETE $dir?"
+		if [ "x$DEL" == "xy" ]
+		then
+			rm -rf $dir	
+		fi
+	fi  
+}
+fkill() {
+    local pid 
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi  
+
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi  
+}
+bip() {
+  local inst=$(brew search "$@" | fzf -m)
+
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do; brew install $prog; done;
+  fi
+}
+ggh() {
+  local cols sep google_history open
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+
+  if [ "$(uname)" = "Darwin" ]; then
+    google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
+    open=open
+  else
+    google_history="$HOME/.config/google-chrome/Default/History"
+    open=xdg-open
+  fi
+  cp -f "$google_history" /tmp/h
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
+}
+# browse google book marks
+ggb() {
+     bookmarks_path=~/Library/Application\ Support/Google/Chrome/Default/Bookmarks
+
+     jq_script='
+        def ancestors: while(. | length >= 2; del(.[-1,-2]));
+        . as $in | paths(.url?) as $key | $in | getpath($key) | {name,url, path: [$key[0:-2] | ancestors as $a | $in | getpath($a) | .name?] | reverse | join("/") } | .path + "/" + .name + "\t" + .url'
+
+    jq -r "$jq_script" < "$bookmarks_path" \
+        | sed -E $'s/(.*)\t(.*)/\\1\t\x1b[36m\\2\x1b[m/g' \
+        | fzf --ansi \
+        | cut -d$'\t' -f2 \
+        | xargs open
+}
+
+########### fzf for git without forgit
+fco() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch --all \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=$(
+    git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 \
+        --ansi) || return
+  git checkout $(awk '{print $2}' <<<"$target" )
+}
+gshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+# Same as above, but allows multi selection:
+function drm() {
+  docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r docker rm
+}
+# Select a docker image or images to remove
+function drmi() {
+  docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r docker rmi
+}
+# export GIT_PROXY_COMMAND="oe-git-proxy"
+# export NO_PROXY=$no_proxy
+ch='/opt/nvme/zeuspan/openbmc30'
+alias dh="cd $ch'/build/tmp/deploy/images/tririvers'"
+alias mh="cd $ch'/openbmc-master/meta-tencent/meta-common/recipes-phosphor'"
+alias oh="cd $ch'/openbmc-master'"
+alias bmcweb='docker run --rm -it -v ~/source:/build wort-test'
+alias loadenv="cd $ch'/openbmc-master';source setup tririvers ../build; cd workspace/sources"
+alias rk='rm ~/.ssh/known_hosts'
+alias utool="cd /opt/nvme/xianqilu/checkVersion/CentOS/ins_stress_openbmc_v2.1"
+function m(){
+	sudo minicom -D /dev/$1
+}
+
+passwd="root"
+function u() {
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/octet-stream"\
+        -X POST -T $1  https://172.16.$2/redfish/v1/UpdateService?save=false
+}
+function t(){
+    curl -k  --insecure --basic -u root:$passwd -H "Content-Type: application/octet-stream" \
+        -X GET https://172.16.16.$2/redfish/v1/TaskService/Tasks/$1
+}
+function c(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" \
+        -X POST -d "{}" https://172.16.16.$1/redfish/v1/Managers/bmc/Actions/Manager.CollectLog/Manual/
+}
+function cg(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" \
+        -X GET https://172.16.16.$1/redfish/v1/Managers/bmc/CollectLog/Manual/
+}
+function df(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" -X DELETE -d "{}" https://172.16.16.$1/redfish/v1/UpdateService/FirmwareInventory
+}
+function rfg(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" -X GET https://172.16.16.$1$2
+}
+function rfpa(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" -X PATCH -d $3 https://172.16.16.$1$2
+}
+function rfpo(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" -X POST -d $3 https://172.16.16.$1$2
+}
+
+function coll(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" -X POST -d "{}" https://172.16.16.$1$2/redfish/v1/Managers/bmc/Actions/Manager.CollectLog/Manual
+}
+function rfd(){
+    curl -k --insecure --basic -u root:$passwd -H "Content-Type: application/json" -X DELETE -d "{}" https://172.16.16.$1$2
+}
+LC_CTYPE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+setopt no_nomatch
+function gfp(){
+	git format-patch -1 --stdout > $1 
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# pnpm
+export PNPM_HOME="/Users/pan/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+export PATH="$PATH:/home/zeuspan/nvim-linux-x86_64/bin"
+export deep_api_key="sk-ceacdc9e05fd4d92b247ba02dfbdfa64"
