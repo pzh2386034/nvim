@@ -5,6 +5,14 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "cpp", "c", "python" },
+  callback = function()
+    vim.opt_local.tabstop = 4      -- Tab 显示为 4 空格
+    vim.opt_local.shiftwidth = 4    -- 自动缩进为 4 空格
+    vim.opt_local.softtabstop = 4   -- 退格键删除 4 空格
+  end,
+})
 -- forbiden wrap
 opt.wrap = false
 
