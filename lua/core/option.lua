@@ -160,14 +160,8 @@ local function async_bitbake()
       -- Open Quickfix window
       vim.cmd('botright copen 6')
     end,
-    -- Assign a unique ID to reuse the same terminal
-    id = 1,  -- Fixed ID ensures reusability
-  }
-
-  -- Toggle the terminal (opens if closed, closes if open)
-  bitbake_term:toggle()
+  }):start()
 end
-
 -- Map the key
 vim.keymap.set('n', 'cc', async_bitbake, {
   noremap = true,
