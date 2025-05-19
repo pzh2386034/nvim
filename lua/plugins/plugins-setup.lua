@@ -23,10 +23,10 @@ vim.cmd([[
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'folke/tokyonight.nvim' -- 主题
-  use {
-  'nvim-lualine/lualine.nvim',
-  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
+  -- use {
+  -- 'nvim-lualine/lualine.nvim',
+  -- requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  -- }
   use 'nvim-treesitter/nvim-treesitter' -- 语法高亮
   use 'p00f/nvim-ts-rainbow' -- 配合treesitter，不同括号颜色区分
   use {
