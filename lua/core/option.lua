@@ -13,7 +13,7 @@ opt.cursorline = true
 
 --启动鼠标
 -- opt.mouse:append('a')
-vim.o.mouse = ''  -- 禁用所有鼠标功能,恢复文本复制粘贴
+vim.o.mouse = '' -- 禁用所有鼠标功能,恢复文本复制粘贴
 
 --系统粘贴板
 opt.clipboard:append("unnamedplus")
@@ -35,7 +35,7 @@ vim.opt.titlestring = ""
 
 -- vim.opt.signcolumn = "no"
 vim.diagnostic.config({
-  signs = false, -- 不显示错误/警告图标
+  signs = false,        -- 不显示错误/警告图标
   virtual_text = false, -- 同时关闭行内错误提示（可选）
 })
 
@@ -67,7 +67,7 @@ local function toggle_quickfix()
   if vim.fn.getqflist({ winid = 1 }).winid ~= 0 then
     vim.cmd("cclose")
   else
-    vim.cmd("botright copen 6")  -- 底部打开高度 6
+    vim.cmd("botright copen 6") -- 底部打开高度 6
   end
 end
 -- 映射快捷键
@@ -91,7 +91,7 @@ vim.opt.foldcolumn = "1"
 -- 保存折叠状态
 vim.opt.viewoptions:append("folds")
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- 需安装 nvim-treesitter
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- 需安装 nvim-treesitter
 -- 文件打开时自动展开到指定层级
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
@@ -138,7 +138,7 @@ local function async_bitbake()
     vim.notify('Not in a Git project!', vim.log.levels.ERROR)
     return
   end
-  project_root = vim.fn.fnamemodify(project_root, ':h')  -- Remove '/.git'
+  project_root = vim.fn.fnamemodify(project_root, ':h') -- Remove '/.git'
 
   -- Extract project name (last part of the path)
   local foldname = vim.fn.fnamemodify(project_root, ':t')
@@ -151,7 +151,7 @@ local function async_bitbake()
     command = 'bitbake ',
     args = { foldname },
     cwd = project_root,
-    env = myenv,  -- Inherit and extend the current environment
+    env = myenv, -- Inherit and extend the current environment
     on_exit = function(j, return_val)
       -- Send output to Quickfix
       vim.fn.setqflist({}, ' ', {

@@ -1,8 +1,8 @@
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -28,20 +28,20 @@ return require('packer').startup(function(use)
   -- requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   -- }
   use 'nvim-treesitter/nvim-treesitter' -- 语法高亮
-  use 'p00f/nvim-ts-rainbow' -- 配合treesitter，不同括号颜色区分
+  use 'p00f/nvim-ts-rainbow'            -- 配合treesitter，不同括号颜色区分
   use {
-    'nvim-tree/nvim-tree.lua',  -- 文档树
+    'nvim-tree/nvim-tree.lua',          -- 文档树
     requires = {
-      'nvim-tree/nvim-web-devicons', -- 文档树图标
+      'nvim-tree/nvim-web-devicons',    -- 文档树图标
     }
   }
 
   use {
     "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",  -- 这个相当于mason.nvim和lspconfig的桥梁
+    "williamboman/mason-lspconfig.nvim", -- 这个相当于mason.nvim和lspconfig的桥梁
     "neovim/nvim-lspconfig"
   }
-    -- 自动补全
+  -- 自动补全
   use "hrsh7th/nvim-cmp"
   use "hrsh7th/cmp-nvim-lsp"
   use {
@@ -50,9 +50,9 @@ return require('packer').startup(function(use)
       "rafamadriz/friendly-snippets",
       "benfowler/telescope-luasnip.nvim"
     }
-  } -- snippets引擎，不装这个自动补全会出问题
+  }                           -- snippets引擎，不装这个自动补全会出问题
   use "saadparwaiz1/cmp_luasnip"
-  use "hrsh7th/cmp-path" -- 文件路径
+  use "hrsh7th/cmp-path"      -- 文件路径
 
   use "numToStr/Comment.nvim" -- gcc和gc注释
   use "windwp/nvim-autopairs" -- 自动补全括号
@@ -63,8 +63,8 @@ return require('packer').startup(function(use)
 
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',  -- 文件检索
-    requires = { {'nvim-lua/plenary.nvim'}, {'stevearc/aerial.nvim' } },
+    'nvim-telescope/telescope.nvim', tag = '0.1.8', -- 文件检索
+    requires = { { 'nvim-lua/plenary.nvim' }, { 'stevearc/aerial.nvim' } },
   }
 
   use {
@@ -72,11 +72,11 @@ return require('packer').startup(function(use)
     config = function()
       -- 基础配置
       vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/nvim/tags/')
-      vim.g.gutentags_file_list_command = 'rg --files'  -- 使用 ripgrep 加速
+      vim.g.gutentags_file_list_command = 'rg --files' -- 使用 ripgrep 加速
     end
   }
 
-  use{ 'anuvyklack/pretty-fold.nvim',
+  use { 'anuvyklack/pretty-fold.nvim',
   }
 
   use({
@@ -86,8 +86,8 @@ return require('packer').startup(function(use)
     end,
   })
 
-  use {"ibhagwan/fzf-lua",
-    requires = { {"nvim-tree/nvim-web-devicons"} },
+  use { "ibhagwan/fzf-lua",
+    requires = { { "nvim-tree/nvim-web-devicons" } },
   }
 
   use({
@@ -102,79 +102,79 @@ return require('packer').startup(function(use)
   use {
     'NeogitOrg/neogit',
     requires = {
-      'nvim-lua/plenary.nvim', -- 必须依赖
+      'nvim-lua/plenary.nvim',  -- 必须依赖
       'sindrets/diffview.nvim', -- 可选：增强 diff 功能
-      'ibhagwan/fzf-lua',              -- optional
+      'ibhagwan/fzf-lua',       -- optional
     },
   }
 
   use "folke/which-key.nvim"
 
   use {
-      'yetone/avante.nvim',
-      build = "make",
-      lazy = false,
-      version = false,
-      BUILD_FROM_SOURCE = true,
-      requires = {
-          'nvim-tree/nvim-web-devicons',
-          'stevearc/dressing.nvim',
-          'nvim-lua/plenary.nvim',
-          'nvim-treesitter/nvim-treesitter',
-          'zbirenbaum/copilot.lua',
-          'hrsh7th/nvim-cmp',
-          'HakonHarnes/img-clip.nvim',
-          'MunifTanjim/nui.nvim',
-          {
-              'MeanderingProgrammer/render-markdown.nvim',
-              config = function()
-                  require('render-markdown').setup({
-                      file_types = { "markdown", "Avante" },
-                  })
-              end,
-          },
+    'yetone/avante.nvim',
+    build = "make",
+    lazy = false,
+    version = false,
+    BUILD_FROM_SOURCE = true,
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'zbirenbaum/copilot.lua',
+      'hrsh7th/nvim-cmp',
+      'HakonHarnes/img-clip.nvim',
+      'MunifTanjim/nui.nvim',
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        config = function()
+          require('render-markdown').setup({
+            file_types = { "markdown", "Avante" },
+          })
+        end,
       },
-      config = function()
-          require('avante.config')
-      end,
-      run = 'make', -- Optional, only if you want to use tiktoken_core to calculate tokens count
+    },
+    config = function()
+      require('avante.config')
+    end,
+    run = 'make', -- Optional, only if you want to use tiktoken_core to calculate tokens count
   }
 
-  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+  use { "akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
-  end}
+  end }
 
   use {
     'saghen/blink.cmp',
     require = {
-        'Kaiser-Yang/blink-cmp-avante',
-        -- ... Other dependencies
+      'Kaiser-Yang/blink-cmp-avante',
+      -- ... Other dependencies
     },
     opts = {
-        sources = {
-            -- Add 'avante' to the list
-            default = { 'avante', 'lsp', 'path', 'luasnip', 'buffer' },
-            providers = {
-                avante = {
-                    module = 'blink-cmp-avante',
-                    name = 'Avante',
-                    opts = {
-                        -- options for blink-cmp-avante
-                    }
-                }
-            },
-        }
+      sources = {
+        -- Add 'avante' to the list
+        default = { 'avante', 'lsp', 'path', 'luasnip', 'buffer' },
+        providers = {
+          avante = {
+            module = 'blink-cmp-avante',
+            name = 'Avante',
+            opts = {
+              -- options for blink-cmp-avante
+            }
+          }
+        },
+      }
     }
   }
 
   use {
     'nvim-neo-tree/neo-tree.nvim',
-      require = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-        -- { "3rd/image.nvim", opts = {} }, -- Optional image support
-      },
+    require = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+      -- { "3rd/image.nvim", opts = {} }, -- Optional image support
+    },
   }
 
   use 'tamton-aquib/duck.nvim'

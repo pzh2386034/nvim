@@ -1,11 +1,11 @@
 -- init.lua
 require("toggleterm").setup({
-  size = 15,              -- 默认终端高度（横向）或宽度（纵向）
+  size = 15,                -- 默认终端高度（横向）或宽度（纵向）
   direction = "horizontal", -- 方向：horizontal | vertical | float | tab
-  close_on_exit = true,   -- 终端退出时自动关闭窗口
-  auto_scroll = true,     -- 自动滚动到底部
-  persist_mode = false,   -- 记忆终端状态
-  shell = vim.o.shell,    -- 使用系统默认 shell
+  close_on_exit = true,     -- 终端退出时自动关闭窗口
+  auto_scroll = true,       -- 自动滚动到底部
+  persist_mode = false,     -- 记忆终端状态
+  shell = vim.o.shell,      -- 使用系统默认 shell
 })
 
 -- 打开/关闭默认终端
