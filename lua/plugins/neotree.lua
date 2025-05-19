@@ -2,7 +2,7 @@ require('neo-tree').setup({
   enable_diagnostics = false,
   enable_git_status = false,
   filesystem = {
-    hide_dotfiles = true,
+    hide_dotfiles = false,
     hide_gitignored = true,
     hide_by_name = {
       ".DS_Store",

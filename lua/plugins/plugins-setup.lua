@@ -179,6 +179,23 @@ return require('packer').startup(function(use)
 
   use 'tamton-aquib/duck.nvim'
 
+  use "rebelot/kanagawa.nvim"    -- dark colorscheme
+  use "mistweaverco/kulala.nvim" -- rest command tool
+  use({
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup()
+    end,
+  })
+
+  use {"nvim-orgmode/orgmode"}
+  use { "nvim-orgmode/telescope-orgmode.nvim",
+    require = {
+      "nvim-orgmode/orgmode",
+      "nvim-telescope/telescope.nvim",
+    }
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end

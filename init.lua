@@ -47,6 +47,10 @@ require("aerial").setup({
 require("plugins.neogit")
 require("plugins.luaSnip")
 require("plugins.avante")
+require("plugins.kulala")
+require("plugins.conform")
+require("plugins.orgmode")
+require("plugins.telescope-orgmode")
 
 require("fzf-lua").setup({
   -- MISC GLOBAL SETUP OPTIONS, SEE BELOW
