@@ -231,7 +231,7 @@ alias dh="cd $ch'/build/tmp/deploy/images/tririvers'"
 alias mh="cd $ch'/openbmc-master/meta-tencent/meta-common/recipes-phosphor'"
 alias oh="cd $ch'/openbmc-master'"
 alias bmcweb='docker run --rm -it -v ~/source:/build wort-test'
-alias loadenv="cd $ch'/openbmc-master';source setup tririvers ../build; cd workspace/sources"
+alias loadenv="cd $ch'/openbmc-master';source setup tririversv3 ../build; cd workspace/sources"
 alias rk='rm ~/.ssh/known_hosts'
 alias utool="cd /opt/nvme/xianqilu/checkVersion/CentOS/ins_stress_openbmc_v2.1"
 function m(){
@@ -282,6 +282,9 @@ function gfp(){
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 # pnpm
 export PNPM_HOME="/Users/pan/Library/pnpm"
