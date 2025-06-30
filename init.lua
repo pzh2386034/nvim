@@ -67,6 +67,7 @@ require("fzf-lua").setup({
     },
   }
 })
+require("plugins.leaderF")
 -- 常用操作映射
 vim.keymap.set('n', 'ff', "<cmd>FzfLua files<CR>", { desc = "Find Files" })
 vim.keymap.set('n', 'fg', "<cmd>FzfLua live_grep<CR>", { desc = "Live Grep" })

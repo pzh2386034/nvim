@@ -195,6 +195,7 @@ return require('packer').startup(function(use)
       "nvim-telescope/telescope.nvim",
     }
   }
+  use {"Yggdroot/LeaderF"}
 
   if packer_bootstrap then
     require('packer').sync()
