@@ -185,14 +185,14 @@ return require('packer').startup(function(use)
     "stevearc/conform.nvim",
   })
 
-  use {"nvim-orgmode/orgmode"}
+  use { "nvim-orgmode/orgmode" }
   use { "nvim-orgmode/telescope-orgmode.nvim",
     require = {
       "nvim-orgmode/orgmode",
       "nvim-telescope/telescope.nvim",
     }
   }
-  use {"Yggdroot/LeaderF"}
+  use { "Yggdroot/LeaderF" }
 
   if packer_bootstrap then
     require('packer').sync()
