@@ -183,9 +183,6 @@ return require('packer').startup(function(use)
   use "mistweaverco/kulala.nvim" -- rest command tool
   use({
     "stevearc/conform.nvim",
-    config = function()
-      require("conform").setup()
-    end,
   })
 
   use {"nvim-orgmode/orgmode"}
