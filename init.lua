@@ -1,5 +1,6 @@
 require("core.option")
 require("core.keymaps")
+require("core.functions")
 require("plugins.plugins-setup")
 require("plugins.nvim-treesitter")
 require("plugins.neotree")
