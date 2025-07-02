@@ -50,14 +50,19 @@ return require('packer').startup(function(use)
       "rafamadriz/friendly-snippets",
       "benfowler/telescope-luasnip.nvim"
     }
-  }                           -- snippets引擎，不装这个自动补全会出问题
-  use "saadparwaiz1/cmp_luasnip"
-  use "hrsh7th/cmp-path"      -- 文件路径
+  }                                   -- snippets引擎，不装这个自动补全会出问题
+  use "saadparwaiz1/cmp_luasnip"      -- snip片段补全
+  use "hrsh7th/cmp-path"              -- 文件路径
+  use "hrsh7th/cmp-buffer"            -- buffer信息补全
+  use 'hrsh7th/cmp-cmdline'           -- 命令行补全源
 
-  use "numToStr/Comment.nvim" -- gcc和gc注释
-  use "windwp/nvim-autopairs" -- 自动补全括号
+  use 'ray-x/lsp_signature.nvim'      -- 函数签名提示
+  use 'onsails/lspkind-nvim'          -- 美化补全菜单
+  use 'simrat39/symbols-outline.nvim' -- 代码大纲
+  use "windwp/nvim-autopairs"         -- 自动补全括号
 
-  -- use "akinsho/bufferline.nvim" -- buffer分割线
+
+  use "numToStr/Comment.nvim"   -- gcc和gc注释
   use "lewis6991/gitsigns.nvim" -- 左则git提示
   use "nvim-telescope/telescope-fzy-native.nvim"
 
