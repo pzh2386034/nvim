@@ -14,3 +14,5 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 --keymap.set("n", "<leader>sh", "<C-w>s") --水平新增窗口
 --toggle 高亮
 keymap.set("n", "<leader>e", ":nohl<CR>")
+
+vim.opt.incsearch = false

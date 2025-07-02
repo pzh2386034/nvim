@@ -199,6 +199,8 @@ return require('packer').startup(function(use)
   }
   use { "Yggdroot/LeaderF" }
   use { 'skywind3000/asyncrun.vim' }
+  use { 'nvim-lua/plenary.nvim' }
+  -- Packer.nvim 示例
 
   if packer_bootstrap then
     require('packer').sync()
