@@ -96,3 +96,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     vim.lsp.buf.format({ async = false })
   end
 })
+
+vim.opt.ruler = false -- 添加左下角line, col 显示
+vim.opt.cmdheight = 1
