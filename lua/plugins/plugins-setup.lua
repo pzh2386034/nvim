@@ -200,8 +200,16 @@ return require('packer').startup(function(use)
   use { "Yggdroot/LeaderF" }
   use { 'skywind3000/asyncrun.vim' }
   use { 'nvim-lua/plenary.nvim' }
-  -- Packer.nvim 示例
-
+  use {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        -- config
+      }
+    end,
+    requires = { 'nvim-tree/nvim-web-devicons' }
+  }
   if packer_bootstrap then
     require('packer').sync()
   end
