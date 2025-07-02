@@ -76,7 +76,6 @@ vim.keymap.set('n', 'fc', "<cmd>FzfLua lgrep_curbuf<CR>", { desc = "live Grep Bu
 vim.keymap.set('n', 'fa', "<cmd>FzfLua grep_cword<CR>", { desc = "Live Grep current word" })
 
 vim.keymap.set('n', 'fb', "<cmd>FzfLua buffers<CR>", { desc = "Find Buffers" })
-vim.keymap.set('n', ',f', "<cmd>FzfLua btags<CR>", { desc = "Find Buffer tags" })
 vim.keymap.set('n', 'fs', "<cmd>FzfLua git_status<CR>", { desc = "Find Buffer tags" })
 vim.keymap.set('n', 'fh', "<cmd>FzfLua helptags<CR>", { desc = "Find Buffer tags" })
 vim.keymap.set('n', 'f;', "<cmd>FzfLua command_history<CR>", { desc = "List history command" })
