@@ -16,7 +16,7 @@ require("conform").setup({
     --   end
     -- end,
   },
-    -- Map of filetype to formatters
+  -- Map of filetype to formatters
   formatters_by_ft = {
     lua = { "stylua" },
     -- Conform will run multiple formatters sequentially
@@ -45,16 +45,16 @@ require("conform").setup({
   -- If this is set, Conform will run the formatter on save.
   -- It will pass the table to conform.format().
   -- This can also be a function that returns the table.
-  format_on_save = {
-    -- I recommend these options. See :help conform.format for details.
-    lsp_format = "fallback",
-    timeout_ms = 500,
-  },
+  -- format_on_save = {
+  --   -- I recommend these options. See :help conform.format for details.
+  --   lsp_format = "fallback",
+  --   timeout_ms = 500,
+  -- },
 })
--- vim.keymap.set('n', 'cf', function()
---   require('conform').format({
---     async = true,        -- 异步格式化不阻塞编辑器
---     lsp_fallback = true, -- 回退到 LSP 格式化
---     timeout_ms = 2000,   -- 超时时间
---   })
--- end, { desc = "Format current buffer" })
+vim.keymap.set('n', 'cf', function()
+  require('conform').format({
+    async = true,        -- 异步格式化不阻塞编辑器
+    lsp_fallback = true, -- 回退到 LSP 格式化
+    timeout_ms = 2000,   -- 超时时间
+  })
+end, { desc = "Format current buffer" })
