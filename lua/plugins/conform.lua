@@ -31,6 +31,8 @@ require("conform").setup({
         return { "isort", "black" }
       end
     end,
+    c = { "clang_format" },
+    cpp = { "clang_format" },
     -- Use the "*" filetype to run formatters on all filetypes.
     ["*"] = { "codespell" },
     -- Use the "_" filetype to run formatters on filetypes that don't
@@ -50,6 +52,21 @@ require("conform").setup({
   --   lsp_format = "fallback",
   --   timeout_ms = 500,
   -- },
+  --   -- 添加 clang_format 配置
+  formatters = {
+    clang_format = {
+      command = "clang-format",
+      args = {
+        "-assume-filename=$FILENAME", -- 确保使用正确的文件类型
+        "-style=file",                -- 使用项目中的 .clang-format 文件
+        "--fallback-style=Microsoft",       -- 默认样式
+      },
+      cwd = require("conform.util").root_file({
+        ".clang-format",       -- 项目级配置文件
+        ".clang-format-ignore" -- 忽略文件
+      }),
+    },
+  },
 })
 vim.keymap.set('n', 'cf', function()
   require('conform').format({

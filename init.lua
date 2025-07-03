@@ -97,6 +97,23 @@ vim.keymap.set('n', '<leader>da', function() require("duck").cook_all() end, {})
 --   end
 -- })
 
-vim.opt.ruler = true-- 添加左下角line, col 显示
-vim.opt.cmdheight = 0
+vim.opt.ruler = true -- 添加左下角line, col 显示
 -- vim.opt.showcmd = false
+-- cmdheight 属性会被别的plugin修改，在3个关键事件点强制重设
+local function set_cmdheight()
+  vim.opt.cmdheight = 0       -- 终端模式保持1行
+end
+
+-- 创建自动命令组
+vim.api.nvim_create_augroup("PersistentCmdHeight", { clear = true })
+
+-- 在三个关键事件点强制执行设置
+-- VimEnter：Neovim 完全启动时
+-- UIEnter：GUI 渲染完成时（防止 GUI 覆盖）
+-- FileType：文件类型检测后（某些文件类型插件会重置）
+vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "FileType" }, {
+  group = "PersistentCmdHeight",
+  pattern = "*",
+  callback = set_cmdheight,
+  desc = "保持 cmdheight=0"
+})
