@@ -206,6 +206,7 @@ return require('packer').startup(function(use)
     config = function()
       require('dashboard').setup {
         -- config
+        theme = 'doom'
       }
     end,
     requires = { 'nvim-tree/nvim-web-devicons' }
