@@ -90,12 +90,13 @@ vim.keymap.set('n', '<leader>dk', function() require("duck").cook() end, {})
 vim.keymap.set('n', '<leader>da', function() require("duck").cook_all() end, {})
 
 -- 自动命令
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.c', '*.cpp', '*.h', '*.hpp' },
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end
-})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--   pattern = { '*.c', '*.cpp', '*.h', '*.hpp' },
+--   callback = function()
+--     vim.lsp.buf.format({ async = false })
+--   end
+-- })
 
-vim.opt.ruler = false -- 添加左下角line, col 显示
-vim.opt.cmdheight = 1
+vim.opt.ruler = true-- 添加左下角line, col 显示
+vim.opt.cmdheight = 0
+-- vim.opt.showcmd = false
