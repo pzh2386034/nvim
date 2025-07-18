@@ -7,6 +7,16 @@ opt.autoindent = true
 
 -- forbiden wrap
 opt.wrap = false
+-- 在 init.lua 或配置文件中添加
+vim.opt.wrap = true          -- 启用自动换行
+vim.opt.linebreak = true     -- 在单词边界换行（避免拆分单词）
+vim.opt.breakindent = true   -- 换行后保持缩进
+vim.opt.showbreak = "↪ "     -- 显示换行符（可选）
+
+-- 设置最大文本宽度（超出此宽度自动换行）
+vim.opt.textwidth = 120      -- 设置为0则禁用自动换行
+vim.opt.colorcolumn = "120"  -- 显示参考线（可选）
+
 
 -- cursor line
 opt.cursorline = true
